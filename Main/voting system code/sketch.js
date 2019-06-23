@@ -1,28 +1,48 @@
-function setup() {
-  let fasPartyVotes = 0;
-  let comPartyVotes = 0;
-  let totalVotes = 0;
-  let winningParty = "";
-  let winningPartyVotes = 0;
-}
+//Make a object for every party so they have votes
+
+function Party(name, ideology, votes) {
+		this.name = name;
+		this.ideology = ideology;
+		this.votes = votes;
+	}
+
+let fascistParty = new Party("The fascist party", "Fascism", 0)
+let communistParty = new Party("The communist party", "Communism", 0)
+let democraticParty = new Party("The democratic party", "Center-left", 0)
+let republicanParty = new Party("The republican party", "Center-right", 0)
 
 function voting() {
-	fasPartyVotes = Math.floor((Math.random() * 1000) + 1)
-	comPartyVotes = Math.floor((Math.random() * 1000) + 1)
-	totalVotes = fasPartyVotes + comPartyVotes
-	onePercent = 100 / totalVotes
+	let parties = [fascistParty, communistParty, democraticParty, republicanParty]
+	let winningParty
 
-	if (fasPartyVotes > comPartyVotes) {
-		console.log("The fascist party has won! With a total of ".concat(fasPartyVotes, " votes!"))
-	} else {
-		console.log("The communist party has won! With a total of ".concat(comPartyVotes, " votes!"))
+	for (const party of parties) {
+		party.votes = Math.floor((Math.random() * 1000) + 1)
+		console.log(party.votes)
 	}
-	fasPartyVotesPercent = (onePercent * fasPartyVotes).toFixed(2)
-	comPartyVotesPercent = (onePercent * comPartyVotes).toFixed(2)
+
+	let totalVotes = 0
+	for (const party of parties) {
+		totalVotes = totalVotes + party.votes
+	}
+
+	let onePercent = 100 / totalVotes
+
+	const mostVotes = Math.max(fascistParty.votes, communistParty.votes, democraticParty.votes, republicanParty.votes)
+
+	for (const party of parties) {
+		if (party.votes == mostVotes) {
+			winningParty = party
+		}
+	}
 
 	console.log("There were a total of ".concat(totalVotes, " votes!"))
-	console.log("The fascist party won ".concat(fasPartyVotesPercent, " percent of the vote"))
-	console.log("The communist party won ".concat(comPartyVotesPercent, " percent of the vote"))
+
+	for (const party of parties) {
+		let partyPercentage = onePercent * party.votes
+		console.log(party.name.concat(" won ", partyPercentage.toFixed(2), " percent of the vote!"))
+	}
+
+	console.log(winningParty.name.concat(" got ", winningParty.votes, " votes and has won the election!"))
 }
 
 voting()
