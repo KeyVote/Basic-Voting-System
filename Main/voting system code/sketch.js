@@ -2,20 +2,37 @@ function setup() {
 	noCanvas();
 }
 
-function Party(name, ideology, votes, partyLeader) {
+function showText(id, text) {
+		input = document.getElementById(id);
+		input.innerText = text
+	}
+
+function Party(name, ideology, votes, pFirstName, pLastName) {
 		this.name = name;
 		this.ideology = ideology;
 		this.votes = votes;
-		this.partyLeader = partyLeader;
+		this.pFirstName = pFirstName;
+		this.pLastName = pLastName;
 }
 
-let fascistParty = new Party("The fascist party", "Fascism", 0, "Julius Di Vanci");
-let communistParty = new Party("The communist party", "Communism", 0, "Vladimir Trotsky");
-let democraticParty = new Party("The democratic party", "Liberalism", 0, "Anna Devago");
-let republicanParty = new Party("The republican party", "Consvervatism", 0, "Luis Lint");
+let firstNames = ["Antonio", "James", "Harald", "Luis", "Nicholas", "Marlyn", "Jessica", "Jonas", "Mary",
+"Vladimir", "Joseph", "Gregor", "George", "Martin", "Maria", "Catherine", "Julia", "Tony",
+"Marcus", "Hillary", "Carl", "Karl", "José", "Jacob", "Harry", "John", "Robert",
+"Linoln", "Adolf", "Gustaf", "Isabella", "Emily", "Joe", "Thomas", "William", "Villiam"];
+
+let lastNames = [" Van Holland", " O'Brien", " Andersson", " Di Clara", " Smith", " Roadsend", " Steelneck", " Johnsson", " Websky",
+" Brown", " Putin", " Sköberg", " Berghøg", " Nowak", " Silva", " Matei", " Ivanov", " Baláž",
+" Kolar", " García", " González", " Keller", " Kaya", " White", " Ozols", " Hoti", " De Luca",
+" Murphy", " Schmidt", " Kapanadze", " Dubois", " Nyman", " Mäkelä", " Petersen", " Saar", " Kloö"];
+
+let fascistParty = new Party("The fascist party", "Fascism", 0, firstNames[Math.floor((Math.random() * 32) + 1)], lastNames[Math.floor((Math.random() * 32) + 1)]);
+let communistParty = new Party("The communist party", "Communism", 0, firstNames[Math.floor((Math.random() * 32) + 1)], lastNames[Math.floor((Math.random() * 32) + 1)]);
+let democraticParty = new Party("The democratic party", "Liberalism", 0, firstNames[Math.floor((Math.random() * 32) + 1)], lastNames[Math.floor((Math.random() * 32) + 1)]);
+let republicanParty = new Party("The republican party", "Consvervatism", 0, firstNames[Math.floor((Math.random() * 32) + 1)], lastNames[Math.floor((Math.random() * 32) + 1)]);
+
+let parties = [fascistParty, communistParty, democraticParty, republicanParty];
 
 function voting() {
-	let parties = [fascistParty, communistParty, democraticParty, republicanParty];
 	let winningParty;
 
 	for (const party of parties) {
@@ -43,16 +60,13 @@ function voting() {
 		let partyPercentage = onePercent * party.votes
 		console.log(party.name.concat(" won ", partyPercentage.toFixed(2), " percent of the vote!"));
 	}
+
 	console.log(winningParty.name.concat(" got ", winningParty.votes, " votes and has won the election!"));
 
-	function showText(id, text) {
-		input = document.getElementById(id);
-		input.innerText = text
-	}
 	showText("WinningParty", "The party that won: ".concat(winningParty.name, "!"))
 	showText("WinningPercentage", "The winning party's percentage of the vote: ".concat((onePercent * winningParty.votes).toFixed(2), "%"))
 	showText("WinningIdeology", "The winning party's ideology: ".concat(winningParty.ideology, "!"))
-	showText("WinningPartyLeader", "The winning party's leader: ".concat(winningParty.partyLeader, "!"))
+	showText("WinningPartyLeader", "The winning party's leader: ".concat(winningParty.pFirstName,  winningParty.pLastName, "!"))
 }
 
 voting()
