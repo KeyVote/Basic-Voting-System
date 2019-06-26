@@ -7,7 +7,7 @@ console.log(popsArray);
 
 function showText(id, text) {
 	input = document.getElementById(id);
-	input.innerText = text
+	input.innerText = text;
 }
 
 function Party(name, ideology, votes, pFirstName, pLastName) {
@@ -39,9 +39,6 @@ function voting() {
 	let winningParty;
 	let totalVotes = 0;
 
-	//for (const party of parties) {
-		//party.votes = Math.floor((Math.random() * 1000) + 1)
-	//}
 	fascistParty.votes = fascistPOPs;
 	communistParty.votes = communistPOPs;
 	liberalParty.votes = liberalPOPs;
