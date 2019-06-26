@@ -10,6 +10,11 @@ let communistPOPs = 0;
 let liberalPOPs = 0;
 let conservativePOPs = 0;
 
+function showText(id, text) {
+	input = document.getElementById(id);
+	input.innerText = text;
+}
+
 function POP(name, ideology) {
 	this.name = name;
 	this.ideology = ideology;
@@ -36,6 +41,15 @@ for (let i = 0; i < 10; i++) {
 	POP("conservativePOPs".concat(conservativePOPs), "Conservatism")
 	conservativePOPs = conservativePOPs + 1;
 }
+
+let time = 0;
+function update() {
+	time++;
+	showText("timeID", "Day: ".concat(time));
+	console.log("The time is: ".concat(time));
+}
+
+let myInterval = setInterval(function() { update(); }, 1000);
 
 console.log(popsArray[0]);
 console.log("Amount of POPs: ".concat(totalPOPs));
