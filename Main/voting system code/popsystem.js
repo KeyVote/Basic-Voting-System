@@ -43,13 +43,26 @@ for (let i = 0; i < 10; i++) {
 }
 
 let time = 0;
-function update() {
-	time++;
+let yearlyCheck = 1;
+const button = document.getElementById("startAndStop");
+const timeText = document.getElementById("timeID");
+let myInterval = -1;
+let updateTime = 125;
+button.addEventListener("click", function(event) {
+	if (myInterval == -1) {
+		button.innerHTML = "Pause";
+		myInterval = setInterval(function() {
+			time++;
+			timeText.innerHTML = "Day: ".concat(time);
+		}, 125)
+	} else {
+		button.innerHTML = "Start";
+		clearInterval(myInterval);
+		myInterval = -1;
+	}
 	showText("timeID", "Day: ".concat(time));
 	console.log("The time is: ".concat(time));
-}
-
-let myInterval = setInterval(function() { update(); }, 1000);
+});
 
 console.log(popsArray[0]);
 console.log("Amount of POPs: ".concat(totalPOPs));
