@@ -3,7 +3,7 @@ function setup() {
 }
 
 console.log(totalPOPs);
-console.log(popsArray);
+console.log(popsArray[0].name);
 
 function showText(id, text) {
 	input = document.getElementById(id);
@@ -57,20 +57,19 @@ function voting() {
 		}
 	}
 
-	console.log("There were a total of ".concat(totalVotes, " votes!"));
+	console.log("There were a total of " + totalVotes + " votes!");
 
 	for (const party of parties) {
 		let partyPercentage = onePercent * party.votes
-		console.log(party.name.concat(" won ", partyPercentage.toFixed(2), " percent of the vote!"));
+		console.log(party.name + " won " + partyPercentage.toFixed(2) + " percent of the vote!");
 	}
 
-	console.log(winningParty.name.concat(" got ", winningParty.votes, " votes and has won the election!"));
+	console.log(winningParty.name + " got " + winningParty.votes + " votes and has won the election!");
 
-	showText("WinningParty", "The party that won: ".concat(winningParty.name, "!"));
-	showText("WinningPercentage", "The winning party's percentage of the vote: ".concat((onePercent * winningParty.votes).toFixed(2), "%"));
-	showText("WinningIdeology", "The winning party's ideology: ".concat(winningParty.ideology, "!"));
-	showText("WinningPartyLeader", "The winning party's leader: ".concat(winningParty.pFirstName,  winningParty.pLastName, "!"));
-	showText("totalPopulation", "The total population is: ".concat(totalPOPs, " people!"));
+	showText("WinningParty", "The party that won: " + winningParty.name, "!");
+	showText("WinningPercentage", "The winning party's percentage of the vote: " + (onePercent * winningParty.votes).toFixed(2) + "%");
+	showText("WinningIdeology", "The winning party's ideology: " + winningParty.ideology + "!");
+	showText("WinningPartyLeader", "The winning party's leader: " + winningParty.pFirstName + winningParty.pLastName + "!");
 }
 
 voting()
