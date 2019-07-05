@@ -80,14 +80,26 @@ for (let i = 0; i < 10; i++) {
 	totalPOPs++;
 }
 
-let time = 0;
+let time = 1;
 let yearlyCheck = 1;
+
 const button = document.getElementById("startAndStop");
 const timeText = document.getElementById("timeID");
+
 let myInterval = -1;
+
 let updateTime = 125;
 const updateEvery5Days = 5;
 let every5DayCheck = 1;
+
+const monthsArray = ["January", "February", "March", "April", "May", "June", 
+"July", "August", "September", "October", "November", "December"];
+let month = 1;
+let monthShower = 0;
+let monthDays = 31;
+let year = 2019;
+let leapYearCounter = 3;
+let leapYearCheck = 4;
 
 showText("totalPopulation", "The total population is: " + popsArray.length + " people!")
 button.addEventListener("click", function(event) {
@@ -95,9 +107,23 @@ button.addEventListener("click", function(event) {
 		button.innerHTML = "Pause";
 		myInterval = setInterval(function() {
 			time++;
-			timeText.innerHTML = "Day: " + time;
-			if (time == updateEvery5Days * every5DayCheck) {
-				every5DayCheck++;
+			timeText.innerHTML = "Date: " + time + " " + monthsArray[monthShower] + ", " + year;
+
+			if (time == monthDays) {
+				time = 1;
+				month++;
+				monthShower++;
+				if (month == 2) {
+					if (leapYearCounter == 4) {
+					monthDays = monthDays - 2;
+					} else {
+						monthDays = monthDays - 3;
+					}
+				} else if (month == 1 || 3 || 5 || 7 || 8 || 10 || 12) {
+					monthDays == 31;
+				} else {
+					monthDays == 30;
+				}
 
 				for (const POP of popsArray) {
 					if (POP.reproductiveValue > POP.reproductiveThreshold) {
@@ -110,6 +136,13 @@ button.addEventListener("click", function(event) {
 						POP.reproductiveValue++;
 					}
 				} 
+
+				if (month == 12) {
+					month = 0;
+					monthShower == 0;
+					year++;
+					leapYearCounter++;
+				}
 			}
 		}, 125)
 	} else {
@@ -117,7 +150,7 @@ button.addEventListener("click", function(event) {
 		clearInterval(myInterval);
 		myInterval = -1;
 	}
-	showText("timeID", "Day: " + time);
+	showText("timeID", "Date: " + time + " " + monthsArray[monthShower] + ", " + year);
 	console.log("The time is: " + time);
 });
 
