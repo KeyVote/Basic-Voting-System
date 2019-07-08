@@ -48,7 +48,6 @@ function createPOP(name, amountOfType, ideology, reproductiveValue, reproductive
 			conservativePOPs++;
 		}
 		totalPOPs = totalPOPs + 1;
-		console.log(POP.reproductiveValue)
 	};
 }
 
@@ -80,11 +79,13 @@ for (let i = 0; i < 10; i++) {
 	totalPOPs++;
 }
 
-let time = 1;
+let day = 1;
 let yearlyCheck = 1;
+let electionYear = 2019;
+let electionYearMultiplier = 1;
 
 const button = document.getElementById("startAndStop");
-const timeText = document.getElementById("timeID");
+const dayText = document.getElementById("timeID");
 
 let myInterval = -1;
 
@@ -106,13 +107,21 @@ button.addEventListener("click", function(event) {
 	if (myInterval == -1) {
 		button.innerHTML = "Pause";
 		myInterval = setInterval(function() {
-			time++;
-			timeText.innerHTML = "Date: " + time + " " + monthsArray[monthShower] + ", " + year;
+			day++;
+			dayText.innerHTML = "Date: " + day + " " + monthsArray[monthShower] + ", " + year;
 
-			if (time == monthDays) {
-				time = 1;
+			if (day == monthDays) {
+				day = 1;
 				month++;
 				monthShower++;
+
+				if (month == 13) {
+					month = 1;
+					monthShower = 0;
+					year++;
+					leapYearCounter++;
+				}
+
 				if (month == 2) {
 					if (leapYearCounter == 4) {
 					monthDays = monthDays - 2;
@@ -120,28 +129,23 @@ button.addEventListener("click", function(event) {
 						monthDays = monthDays - 3;
 					}
 				} else if (month == 1 || 3 || 5 || 7 || 8 || 10 || 12) {
-					monthDays == 31;
+					monthDays = 31;
 				} else {
-					monthDays == 30;
+					monthDays = 30;
 				}
-
 				for (const POP of popsArray) {
 					if (POP.reproductiveValue > POP.reproductiveThreshold) {
 						POP.reproductiveValue = 0;
-						console.log("reproducing!")
 						POP.reproduce()
 						showText("totalPopulation", "The total population is: " + popsArray.length + " people!")
-						console.log("TOTAL POPS ARE: " + popsArray.length)
 					} else {
 						POP.reproductiveValue++;
 					}
 				} 
 
-				if (month == 12) {
-					month = 0;
-					monthShower == 0;
-					year++;
-					leapYearCounter++;
+				if (year == electionYear + (1 * electionYearMultiplier) && month == 1 && day == 1) {
+					electionYearMultiplier++;
+					voting()
 				}
 			}
 		}, 125)
@@ -150,8 +154,7 @@ button.addEventListener("click", function(event) {
 		clearInterval(myInterval);
 		myInterval = -1;
 	}
-	showText("timeID", "Date: " + time + " " + monthsArray[monthShower] + ", " + year);
-	console.log("The time is: " + time);
+	showText("dayID", "Date: " + day + " " + monthsArray[monthShower] + ", " + year);
 });
 
 console.log();
